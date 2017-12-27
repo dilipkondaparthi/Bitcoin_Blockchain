@@ -1,2 +1,2 @@
 # Bitcoin_Blockchain
-Demostrates the internal working model of cryptocurrencies like Bitcoin, Ethereum, etc., in Blockchain  
+Demonstrates the internal working of cryptocurrencies like Bitcoin, Ethereum, etc., in the Blockchain.
