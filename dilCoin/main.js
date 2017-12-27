@@ -1,6 +1,6 @@
 const SHA256 = require('crypto-js/sha256');
 
-Author: Dilip K
+// Author: Dilip K
 
 // Below "class Block" describes how a block looks on a blockchain 
 class Block{
