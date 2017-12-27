@@ -1,4 +1,4 @@
-const SHA256 = require('crypto-js/sha256');
+   const SHA256 = require('crypto-js/sha256');
 
 // Author: Dilip K
 
@@ -7,50 +7,51 @@ class Block{
           constructor(index, timestamp, data, previousHash = '')
 		  {  
             /* constructor is responsible for initializing the block.
-		        i) index tells where the block is present on blockchain, which is optional.
-		        ii) timestamp tells when the block wass created.
-			      iii) data means the transaction details(for cureency) or any data which will sotred on block.
-			    	iv) previousHash is a string that contains hash of the previous block 
+            i) index tells where the block is present on blockchain, which is optional.
+            ii) timestamp tells when the block wass created.
+	    iii) data means the transaction details(for cureency) or any data which will sotred on block.
+            iv) previousHash is a string that contains hash of the previous block 
             v) nonce is a random number which is used in computing Proof-of-Work, refer to the below mineBlock() for clarification.*/
 			
-        this.index = index;
+   				this.index = index;
 				this.timestamp = timestamp;
 				this.data = data;
 				this.previousHash = previousHash;
 				this.hash = this.calculateHash();
-				this.nonce = 0;
-				
+ 				this.nonce = 0;
+ 				
 		  }
 		  
 		  // the below calculateHash() calculates the hash of the whole block.
 		  calculateHash()
-      {  
+                   {  
       /* we will use SHA-256 as the hash function which is not available in default. Actually we need to import it. 
          go to the terminal/command prompt and then type "npm install --save crypto-js" and execute.
-	       it will download the library and automatically puts them in the node module directory which contains the hash functions.
+	 it will download the library and automatically puts them in the node module directory which contains the hash functions.
          then we will import SHA-256 in to the code which was done as written in the first line. */
-				 
-				 return SHA256(this.index + this.timestamp + this.previousHash + JSON.stringify(this.data) + this.nonce).toString();
-		  }	
- 
+			  
+		    return SHA256(this.index + this.timestamp + this.previousHash + JSON.stringify(this.data) + this.nonce).toString();
+ 		  }	
+	 
 		  mineBlock(difficulty)
-      {
+                  {
 	 	        while(this.hash.substring(0,difficulty) !== Array(difficulty + 1).join("0"))
-            {   
+ 			{   
              /*  let's say difficulty = 2. The condition in while loop checks if the hash has "difficulty" number of zeros infront of it.
-                 If not, we shall increment nonce and compute its hash and recheck again till the condition gets satisfied.                 As the difficulty increases, time to mine the block increases  */
+                 If not, we shall increment nonce and compute its hash and recheck again till the condition gets satisfied. 
+		 As the difficulty increases, time to mine the block increases  */
   
-			       this.nonce++;
-			       this.hash = this.calculateHash();	  
-		        }
+ 			      this.nonce++;
+			      this.hash = this.calculateHash();	  
+ 		        }
 
-		         console.log("Block mined: " + this.hash);
+			         console.log("Block mined: " + this.hash);
 		  }
-}
-
+	}
+ 	
 class Blockchain{
-	constructor()
-  {
+ 	constructor()
+	{
 		// Constructor here is reponsible for initializing the blockchain
 		this.chain = [this.createGenesisBlock()]; // chain is an array of blocks.
  		this.difficulty = 2;
@@ -67,9 +68,8 @@ class Blockchain{
 	
 	addBlock(newBlock){       // This function adds a new block on to the blockchain
 		newBlock.previousHash = this.getLatestBlock().hash;
-		newBlock.mineBlock(this.difficulty);
-		
-    this.chain.push(newBlock); /* In reality, we cannot add the block to the blockchain so easily beacause there are 
+		newBlock.mineBlock(this.difficulty);	
+	        this.chain.push(newBlock); /* In reality, we cannot add the block to the blockchain so easily beacause there are 
                                   various checks inplace. For our little Blockchain, its more than enough as this is 
                                   a demostration of how the blockchain actually works. */
 	}
@@ -79,7 +79,7 @@ class Blockchain{
 
 	isChainValid(){
 		for(let i = 1; i < this.chain.length; i++) /* inorder to verify integrity of blockchain, we will loop over the entire chain.
-							                                     we are not going to start with '0' as it is a genesis block.  */
+							      we are not going to start with '0' as it is a genesis block.  */
 		{
 		const currentBlock = this.chain[i];
 		const previousBlock = this.chain[i - 1];
@@ -90,7 +90,7 @@ class Blockchain{
 
 		// condition2 to check if the block points to the previous block
 
-if(currentBlock.previousHash != previousBlock.hash){
+		if(currentBlock.previousHash != previousBlock.hash){
 			return false;
 			}
 		}
